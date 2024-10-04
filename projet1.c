@@ -17,7 +17,7 @@ typedef struct{
     char nom[MAX_NOM];
     char prenom[MAX_PRENOM];
     int age;
-    int num;
+    char num[10];
     char status[MAX_STATUS];
     Date date;
     int id;
@@ -27,12 +27,12 @@ int count =0;
 int rechercheid;
 int choix;
 
-void ajouter_reservation_par_defaut(const char* nom, const char* prenom, int age, int num, const char* status, int day, int month, int year, int id) {
+void ajouter_reservation_par_defaut(const char* nom, const char* prenom, int age, const char* num, const char* status, int day, int month, int year, int id) {
     if (count < MAX_RESERVATION) {
         strcpy(stock[count].nom, nom);
         strcpy(stock[count].prenom, prenom);
         stock[count].age = age;
-        stock[count].num = num;
+        strcpy(stock[count].num, num);  
         strcpy(stock[count].status, status);
         stock[count].date.day = day;
         stock[count].date.month = month;
@@ -44,16 +44,17 @@ void ajouter_reservation_par_defaut(const char* nom, const char* prenom, int age
 
 void initialiser_reservations_par_defaut() {
    
-    ajouter_reservation_par_defaut("Reda", "Jenhaji", 18, 0664146942, "valide", 22, 10, 2025, 10);
-    ajouter_reservation_par_defaut("Sophie", "Martin", 25, 0601234567, "valide", 15, 11, 2024, 11);
-    ajouter_reservation_par_defaut("Albert", "Camus", 32, 0607654321, "reporte", 3, 12, 2024, 12);
-    ajouter_reservation_par_defaut("Emma", "Dubois", 28, 0612345678, "valide", 7, 1, 2025, 13);
-    ajouter_reservation_par_defaut("Thomas", "Robert", 45, 0623456789, "annule", 18, 2, 2025, 14);
-    ajouter_reservation_par_defaut("Chloe", "Petit", 22, 0634567890, "valide", 29, 3, 2025, 15);
-    ajouter_reservation_par_defaut("Antoine", "Richard", 37, 0645678901, "traite", 10, 4, 2025, 16);
-    ajouter_reservation_par_defaut("Lea", "Moreau", 30, 0656789012, "valide", 5, 5, 2025, 17);
-    ajouter_reservation_par_defaut("Hugo", "Simon", 41, 0667890123, "reporte", 20, 6, 2025, 18);
-    ajouter_reservation_par_defaut("Manon", "Laurent", 26, 0678901234, "valide", 12, 7, 2025, 19);
+    ajouter_reservation_par_defaut("Reda", "Jenhaji", 18, "0664146942", "valide", 22, 10, 2025, 10);
+    ajouter_reservation_par_defaut("Sophie", "Martin", 25, "0601234567", "valide", 15, 11, 2024, 11);
+    ajouter_reservation_par_defaut("Albert", "Camus", 32, "0607654321", "reporte", 3, 12, 2024, 12);
+    ajouter_reservation_par_defaut("Emma", "Dubois", 28, "0612345678", "valide", 7, 1, 2025, 13);
+    ajouter_reservation_par_defaut("Thomas", "Robert", 45, "0623456789", "annule", 18, 2, 2025, 14);
+    ajouter_reservation_par_defaut("Chloe", "Petit", 22, "0634567890", "valide", 29, 3, 2025, 15);
+    ajouter_reservation_par_defaut("Antoine", "Richard", 37," 0645678901", "traite", 10, 4, 2025, 16);
+    ajouter_reservation_par_defaut("Lea", "Moreau", 30, "0656789012", "valide", 5, 5, 2025, 17);
+    ajouter_reservation_par_defaut("Hugo", "Simon", 41, "0667890123", "reporte", 20, 6, 2025, 18);
+    ajouter_reservation_par_defaut("Manon", "Laurent", 26, "0678901234", "valide", 12, 7, 2025, 19);
+
 }
 
 void ajouter(){
@@ -69,7 +70,7 @@ void ajouter(){
         scanf("%d", &stock[count].age);
     }
     printf("\nentrer votre numero de telephone : ");
-    scanf("%d",&stock[count].num);
+    scanf("%s",&stock[count].num);
     printf("\nvotre status ; (valide, reporte, annule, traite) ? : ");
     scanf("%s", stock[count].status);
      while(strcmp(stock[count].status, "valide") != 0 && 
@@ -106,120 +107,102 @@ void ajouter(){
 count ++;
 }
 
-    void modifier(){
-        printf("set ce que tu veux modifier ou supprimer un reservation ? \n");
-        printf("pour modifier slectionner 1 , pour supprimer selection 2 , pour quiiter  entrer 0 \n");
-        printf("votre choix  : ");
-         scanf("%d",&choix);
-         if(choix == 1){
-            printf("entrer l'id que tu veux modifier : ");
-            scanf("%d",&rechercheid);
- for(int i=0;i<count;i++){
-           
-         if(rechercheid == stock[i].id){
-            printf("tu veux modifier le nom de ce id (oui = 1 , non = autre chose )?");
-            scanf("%d",choix);
-            if(choix == 1){
-                char nn[100];
-                printf("entrer le nom que tu veux");
-                scanf(" %[^\n]",nn);
-                strcpy(stock[i].nom, nn);
-            }
-            printf("tu veux modifier le prenom de ce id (oui = 1 , non = autre chose )?");
-            scanf("%d",choix);
-            if(choix == 1){
-                char nn[100];
-                printf("entrer le prenom que tu veux");
-                scanf(" %[^\n]",nn[100]);
-                strcpy(stock[i].prenom, nn);
-            }
-            printf("tu veux modifier l'age de ce id (oui = 1 , non = autre chose )?");
-            scanf("%d",choix);
-            if(choix == 1){
-                int ann;
-                printf("entrer l'age que tu veux");
-                scanf("%d",&ann);
-                while(ann < 0 || ann > 140) {
-        printf("Age invalide, entrer votre age reel : ");
-        scanf("%d", &ann);
-    }
-                stock[i].age = ann;
-            }
-             printf("tu veux modifier la numero de ce id (oui = 1 , non = autre chose )?");
-            scanf("%d",choix);
-            if(choix == 1){
-                int ann;
-                printf("entrer la numero que tu veux : ");
-                scanf("%d",&ann);
-                stock[i].num = ann;
-            }
-            printf("tu veux modifier le status de ce id (oui = 1 , non = autre chose )?");
-            scanf("%d",choix);
-            if(choix == 1){
-                char nn[100];
-                printf("entrer le nouveau status");
-                scanf(" %s",nn[100]);
-                 while(strcmp(nn, "valide") != 0 && 
-          strcmp(nn, "reporte") != 0 && 
-          strcmp(nn, "annule") != 0 && 
-          strcmp(nn, "traite") != 0) {
-        printf("Entrer un statut correct (valide, reporte, annule, traite) : ");
-         scanf("%s",stock[i].status);
-    }
-    
-                
-            }
-            printf("tu veux changer la date (oui = 1 , non = autre chose )");
-             scanf("%d",choix);
-            if(choix == 1){
-             printf("\nla date de votre reservation ?(dd/mm/yyyy)");
+void modifier() {
+    printf("Voulez-vous modifier ou supprimer une réservation?\n");
+    printf("1. Modifier\n2. Supprimer\n0. Quitter\nVotre choix: ");
+    scanf("%d", &choix);
 
-    printf("\nentrer la date par jour (dd) : ");
-     scanf("%d",&stock[i].date.day);
-   while(stock[i].date.day < 1 || stock[i].date.day > 31) {
-        printf("\nEntrer un jour valide : ");
-         scanf("%d", &stock[i].date.day);
-    }
-     printf("\nentrer le mois (mm) : ");
-      scanf("%d",&stock[i].date.month);
-    while(stock[i].date.month < 1 || stock[i].date.month > 12) {
-        printf("\nEntrer un mois valide : ");
-         scanf("%d", &stock[i].date.month);
-    }
+    if (choix == 1) {
+        printf("Entrez l'ID de la réservation à modifier: ");
+        scanf("%d", &recherche_id);
 
-     printf("\nentrer l'anne (yyyy) : ");
-      scanf("%d",&stock[i].date.year);
-    while(stock[i].date.year < 2024 || stock[i].date.year > 2050) {
-        printf("\nEntrer une annee valide : ");
-         scanf("%d", &stock[i].date.year);
-    }
+        for (int i = 0; i < count; i++) {
+            if (stock[i].id == recherche_id) {
+                int choix_mod;
+                printf("Modifier le nom (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    printf("Entrez le nouveau nom: ");
+                    scanf(" %[^\n]", stock[i].nom);
+                }
+
+                printf("Modifier le prénom (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    printf("Entrez le nouveau prénom: ");
+                    scanf(" %[^\n]", stock[i].prenom);
+                }
+
+                printf("Modifier l'âge (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    do {
+                        printf("Entrez le nouvel âge: ");
+                        scanf("%d", &stock[i].age);
+                    } while (stock[i].age < 0 || stock[i].age > 140);
+                }
+
+                printf("Modifier le numéro (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    printf("Entrez le nouveau numéro: ");
+                    scanf("%s", stock[i].num);
+                }
+
+                printf("Modifier le statut (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    do {
+                        printf("Entrez le nouveau statut (valide, reporte, annule, traite): ");
+                        scanf("%s", stock[i].status);
+                    } while (strcmp(stock[i].status, "valide") != 0 && strcmp(stock[i].status, "reporte") != 0 &&
+                             strcmp(stock[i].status, "annule") != 0 && strcmp(stock[i].status, "traite") != 0);
+                }
+
+                printf("Modifier la date (1: Oui, autre: Non)? ");
+                scanf("%d", &choix_mod);
+                if (choix_mod == 1) {
+                    do {
+                        printf("Entrez le nouveau jour: ");
+                        scanf("%d", &stock[i].date.day);
+                    } while (stock[i].date.day < 1 || stock[i].date.day > 31);
+
+                    do {
+                        printf("Entrez le nouveau mois: ");
+                        scanf("%d", &stock[i].date.month);
+                    } while (stock[i].date.month < 1 || stock[i].date.month > 12);
+
+                    do {
+                        printf("Entrez la nouvelle année: ");
+                        scanf("%d", &stock[i].date.year);
+                    } while (stock[i].date.year < 2024 || stock[i].date.year > 2050);
+                }
+
+                printf("Modification terminée.\n");
+                return;
             }
-         }//suuuuuuuuuuuuuuuuuuuuuuuuuuprimer
-         if(choix ==2){                                                                      //suuuuuuuuuuuuuuuuuuuuuuuuuuprimer
-            printf("entrer  lid de reservartion que tu veux supprimer : \n ");
-             scanf("%d",rechercheid);
-             for(int i=0;i<count;i++){
-   
-   if(rechercheid==stock[i].id){
-        for (int j = i; j<count-1 ;j++){
-        // strcpy(stock[j].nom,stock[j+1].nom);
-        // strcpy(stock[j].prenom,stock[j+1].prenom);
-        stock[j]=stock[j+1];
-        //   strcpy(stock[j].status,stock[j+1].status);
-         
         }
-    stock--;
-    count--;
-    printf("la reservation est supprimer ");
-     break;
-    }
 
+        printf("ID introuvable.\n");
+
+    } else if (choix == 2) {
+        printf("Entrez l'ID de la réservation à supprimer: ");
+        scanf("%d", &recherche_id);
+
+        for (int i = 0; i < count; i++) {
+            if (stock[i].id == recherche_id) {
+                for (int j = i; j < count - 1; j++) {
+                    stock[j] = stock[j + 1];
+                }
+                count--;
+                printf("Réservation supprimée.\n");
+                return;
+            }
+        }
+
+        printf("ID introuvable.\n");
     }
-         }
- }
-      
-    }
-    }
+}
     
 void triage() {
     int choix;
@@ -356,35 +339,35 @@ void triage() {
     }
 }
 
-void Statistiques(){
-    int stchoix;
-    double sum1=0;
-    int counti = 0;
-    printf("selecter un choix :");
-    printf("1 - la moyenne d'age des patients ayant reserve.");
-    printf("2 - le nombre de patients par tranche d'age (ex. : 0-18 ans, 19-35 ans, 36+ ans)");
-    printf("3 -  connaître le nombre total de reservations par statut (valide, annule, etc.).");
-    printf("entrer votre choix : ");
-    scanf("%d",&stchoix);
-    switch(stchoix){
-        case 1 :
-        for(int i =0;i<=count;i++){
+// void Statistiques(){
+//     int stchoix;
+//     double sum1=0;
+//     int counti = 0;
+//     printf("selecter un choix :");
+//     printf("1 - la moyenne d'age des patients ayant reserve.");
+//     printf("2 - le nombre de patients par tranche d'age (ex. : 0-18 ans, 19-35 ans, 36+ ans)");
+//     printf("3 -  connaître le nombre total de reservations par statut (valide, annule, etc.).");
+//     printf("entrer votre choix : ");
+//     scanf("%d",&stchoix);
+//     switch(stchoix){
+//         case 1 :
+//         for(int i =0;i<=count;i++){
             
-            sum += stock[i].age;
+//             sum += stock[i].age;
             
-        }
-        printf("la moyenne d'age est : %0.2f ",sum/count);
-        break;
+//         }
+//         printf("la moyenne d'age est : %0.2f ",sum/count);
+//         break;
         
-        case 2 :
-        for(int=0;i<count;i++){
-           if(stock[i].age < 19 && stock[i].age > 0){
-           counti++; 
-           }
-        }
-        printf("")
-    }
-}
+//         case 2 :
+//         for(int=0;i<count;i++){
+//            if(stock[i].age < 19 && stock[i].age > 0){
+//            counti++; 
+//            }
+//         }
+//         printf("")
+//     }
+// }
 
 int main(){
     srand(time(NULL));
@@ -412,8 +395,8 @@ do{
         triage();
         break;
         case 4 :
-
-
+        recherche();
+        break;
         
         case 0 :
         printf("Au Revoir ): !!\n");

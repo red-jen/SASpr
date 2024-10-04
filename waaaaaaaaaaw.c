@@ -35,7 +35,7 @@ void ajouter_reservation_par_defaut(const char* nom, const char* prenom, int age
         strcpy(stock[count].nom, nom);
         strcpy(stock[count].prenom, prenom);
         stock[count].age = age;
-        strcpy(stock[count].num, num);
+        strcpy(stock[count].num, num);  
         strcpy(stock[count].status, status);
         stock[count].date.day = day;
         stock[count].date.month = month;
@@ -46,7 +46,7 @@ void ajouter_reservation_par_defaut(const char* nom, const char* prenom, int age
 }
 
 void initialiser_reservations_par_defaut() {
-
+   
     ajouter_reservation_par_defaut("Reda", "Jenhaji", 18, "0664146942", "valide", 22, 10, 2025, 10);
     ajouter_reservation_par_defaut("Sophie", "Martin", 25, "0601234567", "valide", 15, 11, 2024, 11);
     ajouter_reservation_par_defaut("Albert", "Camus", 32, "0607654321", "reporte", 3, 12, 2024, 12);
@@ -76,9 +76,9 @@ void ajouter(){
     scanf("%s",&stock[count].num);
     printf("\nvotre status ; (valide, reporte, annule, traite) ? : ");
     scanf("%s", stock[count].status);
-     while(strcmp(stock[count].status, "valide") != 0 &&
-          strcmp(stock[count].status, "reporte") != 0 &&
-          strcmp(stock[count].status, "annule") != 0 &&
+     while(strcmp(stock[count].status, "valide") != 0 && 
+          strcmp(stock[count].status, "reporte") != 0 && 
+          strcmp(stock[count].status, "annule") != 0 && 
           strcmp(stock[count].status, "traite") != 0) {
         printf("Entrer un statut correct (valide, reporte, annule, traite) : ");
          scanf("%s", stock[count].status);
@@ -106,7 +106,7 @@ void ajouter(){
     stock[count].id = rand()%1000 + 1 ;
     printf("\nvotre id est : %d  , veullez vous le rmember",stock[count].id);
     printf("\nvotre reservation est complete  :) \n");
-
+    
 count ++;
 }
 
@@ -206,7 +206,7 @@ void modifier() {
         printf("ID introuvable.\n");
     }
 }
-
+    
 void triage() {
     int choix;
     printf("Choisissez le critere de tri:\n");
@@ -256,8 +256,8 @@ void triage() {
 
     // Afficher les reservations triees
     for (int i = 0; i < count; i++) {
-        printf("ID: %d, Nom: %s, Date: %02d/%02d/%04d\n",
-               stock[i].id, stock[i].nom,
+        printf("ID: %d, Nom: %s, Date: %02d/%02d/%04d\n", 
+               stock[i].id, stock[i].nom, 
                stock[i].date.day, stock[i].date.month, stock[i].date.year);
     }
 }
@@ -276,11 +276,11 @@ void recherche() {
             int id_recherche;
             printf("Entrez l'ID a rechercher: ");
             scanf("%d", &id_recherche);
-
+            
             for (int i = 0; i < count; i++) {
                 if (stock[i].id == id_recherche) {
                     printf("Reservation trouvee:\n");
-                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n",
+                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n", 
                            stock[i].id, stock[i].nom, stock[i].prenom,
                            stock[i].date.day, stock[i].date.month, stock[i].date.year,
                            stock[i].status);
@@ -294,12 +294,12 @@ void recherche() {
             char nom_recherche[MAX_NOM];
             printf("Entrez le nom a rechercher: ");
             scanf(" %[^\n]", nom_recherche);
-
+            
             int trouve = 0;
             for (int i = 0; i < count; i++) {
                 if (strcmp(stock[i].nom, nom_recherche) == 0) {
                     printf("Reservation trouvee:\n");
-                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n",
+                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n", 
                            stock[i].id, stock[i].nom, stock[i].prenom,
                            stock[i].date.day, stock[i].date.month, stock[i].date.year,
                            stock[i].status);
@@ -319,12 +319,12 @@ void recherche() {
             scanf("%d", &mois);
             printf("(yyyy)  : ");
             scanf("%d", &annee);
-
+            
             int trouve = 0;
             for (int i = 0; i < count; i++) {
                 if (stock[i].date.day == jour && stock[i].date.month == mois && stock[i].date.year == annee) {
                     printf("Reservation trouvee:\n");
-                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n",
+                    printf("ID: %d, Nom: %s %s, Date: %02d/%02d/%04d, Status: %s\n", 
                            stock[i].id, stock[i].nom, stock[i].prenom,
                            stock[i].date.day, stock[i].date.month, stock[i].date.year,
                            stock[i].status);
@@ -370,12 +370,12 @@ do{
         case 4 :
         recherche();
         break;
-
+        
         case 0 :
         printf("Au Revoir ): !!\n");
         break;
 
-        default :
+        default : 
         printf("choix invalid !!!\n");
         break;
     }

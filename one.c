@@ -37,7 +37,7 @@ void ajouter(){
     scanf(" %[^\n]",stock[count].nom);
     printf("\nentrer votre prenom : ");
     scanf(" %[^\n]",stock[count].prenom);
-    printf("\n entrer votre age : ");
+    printf("\nentrer votre age : ");
     scanf("%s", stock[count].age);
     printf("\nentrer votre numero de telephone : ");
     scanf("%s", stock[count].num);
